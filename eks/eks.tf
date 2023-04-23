@@ -88,6 +88,14 @@ module "eks_managed_node_group_initial" {
     }
   }
 
+  taints = {
+    dedicated = {
+      key      = "karpenter"
+      value    = "allowed"
+      effect   = "NO_SCHEDULE"
+    }
+  }
+
   tags = {
     "karpenter.sh/discovery" = module.env_info.envs[terraform.workspace].eks.cluster_name
   }
