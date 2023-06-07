@@ -21,7 +21,7 @@ locals {
 
       eks = {
         cluster_name = "sam-eks-dev"
-        cluster_version = "1.22"
+        cluster_version = "1.23"
 
         node_group_general = {
           min_size       = 0

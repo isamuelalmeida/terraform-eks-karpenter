@@ -27,7 +27,7 @@ module "eks" {
       resolve_conflicts = "OVERWRITE"
     }
   }
-  
+
   aws_auth_accounts = var.aws_auth_accounts
   aws_auth_users    = var.aws_auth_users
   aws_auth_roles    = var.aws_auth_roles
@@ -47,6 +47,10 @@ module "eks" {
   }
 
   node_security_group_tags = {
+    "kubernetes.io/cluster/${module.env_info.envs[terraform.workspace].eks.cluster_name}" = null
+  }
+
+  tags = {
     "karpenter.sh/discovery" = module.env_info.envs[terraform.workspace].eks.cluster_name
   }
 
@@ -88,16 +92,4 @@ module "eks_managed_node_group_initial" {
     }
   }
 
-  taints = {
-    dedicated = {
-      key      = "karpenter"
-      value    = "allowed"
-      effect   = "NO_SCHEDULE"
-    }
-  }
-
-  tags = {
-    "karpenter.sh/discovery" = module.env_info.envs[terraform.workspace].eks.cluster_name
-  }
-  
 }
