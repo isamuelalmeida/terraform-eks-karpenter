@@ -2,7 +2,7 @@ module "karpenter" {
   source  = "terraform-aws-modules/eks/aws//modules/karpenter"
   version = "18.31.0"
 
-  cluster_name = module.eks.cluster_name
+  cluster_name = module.env_info.envs[terraform.workspace].eks.cluster_name
 
   irsa_oidc_provider_arn          = module.eks.oidc_provider_arn
   irsa_namespace_service_accounts = ["karpenter:karpenter"]
@@ -37,7 +37,7 @@ resource "helm_release" "karpenter" {
 
   set {
     name  = "settings.aws.clusterName"
-    value = module.eks.cluster_name
+    value = module.env_info.envs[terraform.workspace].eks.cluster_name
   }
 
   set {
@@ -58,5 +58,10 @@ resource "helm_release" "karpenter" {
   set {
     name  = "settings.aws.interruptionQueueName"
     value = module.karpenter.queue_name
+  }
+
+  set {
+    name  = "logLevel"
+    value = "info"
   }
 }

@@ -11,21 +11,21 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.15.1"
+      version = "4.67.0"
     }
 
     # Karpenter
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 2.5"
+      version = "~> 2.10.1"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
-      version = "~> 1.14"
+      version = "~> 1.14.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.19.0"
+      version = "2.21.1"
     }
   }
 

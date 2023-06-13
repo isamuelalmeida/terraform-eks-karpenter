@@ -1,6 +1,6 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "18.31.0"
+  version = "18.31.2"
 
   cluster_name    = module.env_info.envs[terraform.workspace].eks.cluster_name
   cluster_version = module.env_info.envs[terraform.workspace].eks.cluster_version
@@ -59,7 +59,7 @@ module "eks" {
 
 module "eks_managed_node_group_initial" {
   source  = "terraform-aws-modules/eks/aws//modules/eks-managed-node-group"
-  version = "18.31.0"
+  version = "18.31.2"
 
   name            = "${module.env_info.envs[terraform.workspace].eks.cluster_name}-initial"
   cluster_name    = module.env_info.envs[terraform.workspace].eks.cluster_name
